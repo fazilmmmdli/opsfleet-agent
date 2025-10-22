@@ -28,6 +28,8 @@ By default the CLI prints **the final agent answer**.
 
 ### LangGraph orchestration
 
+![Opsfleet Agent Architecture](architecture.png)
+
 ```
 analyst → workbench → analyst → finalize
 ```
