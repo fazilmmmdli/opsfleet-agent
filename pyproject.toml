@@ -21,9 +21,6 @@ dependencies = [
 [project.scripts]
 opsfleet = "app.cli:main"
 
-[project.urls]
-Repository = "https://example.com/your-public-repo"
-Issues = "https://example.com/your-public-repo/issues"
 
 [dependency-groups]
 dev = [
