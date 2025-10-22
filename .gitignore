@@ -27,16 +27,6 @@ dist/
 pip-log.txt
 pip-delete-this-directory.txt
 
-# -------------------------
-# Tests / coverage
-# -------------------------
-.tox/
-.nox/
-.coverage
-.coverage.*
-.pytest_cache/
-htmlcov/
-.cache
 
 # -------------------------
 # Notebooks
