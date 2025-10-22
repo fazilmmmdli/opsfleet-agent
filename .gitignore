@@ -1,0 +1,78 @@
+# -------------------------
+# Python build artifacts
+# -------------------------
+__pycache__/
+*.py[cod]
+*$py.class
+
+# -------------------------
+# Virtual envs
+# -------------------------
+.venv/
+venv/
+env/
+ENV/
+
+# -------------------------
+# Packaging / distribution
+# -------------------------
+build/
+dist/
+*.egg-info/
+.eggs/
+
+# -------------------------
+# Install logs
+# -------------------------
+pip-log.txt
+pip-delete-this-directory.txt
+
+# -------------------------
+# Tests / coverage
+# -------------------------
+.tox/
+.nox/
+.coverage
+.coverage.*
+.pytest_cache/
+htmlcov/
+.cache
+
+# -------------------------
+# Notebooks
+# -------------------------
+.ipynb_checkpoints/
+
+# -------------------------
+# Editors / IDEs
+# -------------------------
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# -------------------------
+# Env / secrets
+# -------------------------
+.env
+
+# -------------------------
+# Type checkers
+# -------------------------
+.mypy_cache/
+.dmypy.json
+dmypy.json
+.pyre/
+
+# -------------------------
+# Profiling
+# -------------------------
+*.prof
+.prof
+
+# -------------------------
+# Runtime logs & artifacts
+# -------------------------
+logs/
+*.log
+

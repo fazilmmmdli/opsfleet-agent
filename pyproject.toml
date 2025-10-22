@@ -1,0 +1,32 @@
+[project]
+name = "opsfleet-agent"
+version = "1.2.0"
+description = "Opsfleet Agent: a LangGraph-powered ecommerce insights assistant for BigQuery"
+readme = "README.md"
+requires-python = ">=3.13"
+license = { text = "MIT" }
+authors = [{ name = "Fazil Mammadli", email = "mammadli@umd.edu" }]
+
+dependencies = [
+  "db-dtypes==1.2.0",
+  "google-cloud-bigquery>=3.13.0",
+  "ipython>=9.4.0",
+  "langchain-core>=0.3.0",
+  "langchain-google-genai>=1.0.0",
+  "langgraph>=0.2.0",
+  "pandas>=2.0.0",
+  "python-dotenv>=1.0.0",
+]
+
+[project.scripts]
+opsfleet = "app.cli:main"
+
+[project.urls]
+Repository = "https://example.com/your-public-repo"
+Issues = "https://example.com/your-public-repo/issues"
+
+[dependency-groups]
+dev = [
+  "graphviz>=0.21",
+  "langchain-community>=0.3.28",
+]

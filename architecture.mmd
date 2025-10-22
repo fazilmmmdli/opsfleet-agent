@@ -1,0 +1,78 @@
+flowchart LR
+
+%% ─────────────────────────
+%% Opsfleet Agent Architecture (final)
+%% ─────────────────────────
+
+%% External actors
+user([User])
+cli[[app/cli.py<br/>Opsfleet Data Copilot CLI]]
+
+%% Runtime
+subgraph runtime[Opsfleet Agent Runtime]
+  direction TB
+
+  %% Orchestrator
+  subgraph orch[LangGraph Orchestrator]
+    direction TB
+    loop((event loop))
+    analyst["analyst<br/>AnalyzeNode"]
+    workbench["workbench<br/>ToolNode"]
+    finalize["finalize<br/>noop"]
+    terminus([end])
+
+    %% Control flow
+    analyst -->|tools| workbench
+    workbench --> analyst
+    analyst -->|finish| finalize
+    finalize --> terminus
+    loop --> analyst
+  end
+
+  %% Services
+  subgraph services[Services]
+    direction TB
+    memo["MemorySaver<br/>in-memory checkpoints"]
+    settings["Settings Loader<br/>app/settings/agent-settings.yaml"]
+    env["Env Vars<br/>.env GOOGLE_API_KEY and more"]
+    model["ModelGateway<br/>primary: gemini-2.5-flash<br/>fallback: gemini-1.5-flash-8b"]
+    adapters["BQ Adapters<br/>run_sql_bq_tool<br/>inspect_bq_schema_tool"]
+    logs["Logging"]
+  end
+end
+
+%% Storage / external systems
+fs[(Local FS<br/>logs)]
+bq[(BigQuery Dataset<br/>bigquery-public-data.thelook_ecommerce)]
+
+%% External I/O
+user -->|questions| cli
+cli -->|run_chat_once| analyst
+
+%% LLM request/response (dashed)
+analyst -. "ask/invoke" .-> model
+model   -. "responses"  .-> analyst
+
+%% Tool calls (dashed)
+workbench -. "tool calls" .-> adapters
+adapters  -. "results"    .-> workbench
+
+%% Tool backends
+adapters -->|SQL| bq
+
+%% Config & infra wiring
+settings --> model
+settings --> adapters
+env --> model
+memo --> analyst
+logs --> cli
+logs --> fs
+
+%% Styling
+classDef box fill:#eef5ff,stroke:#8cb3ff,rx:10,ry:10,stroke-width:1.2px,color:#1a2b49;
+classDef group fill:#f7fbff,stroke:#bcd3ff,rx:12,ry:12,stroke-width:1.5px,color:#1a2b49;
+classDef store fill:#eafaf5,stroke:#4fbf9f,stroke-width:1.4px,rx:14,ry:14,color:#124c3a;
+
+class cli,analyst,workbench,finalize,model,adapters,settings,env,logs,memo box;
+class runtime,orch,services group;
+class fs,bq store;

@@ -1,0 +1,15 @@
+# Opsfleet Agent — runtime settings
+
+bigquery:
+  project_id: "autonomous-bit-354211"
+  dataset_id: "bigquery-public-data.thelook_ecommerce"
+
+agent:
+  llm_model: "gemini-2.5-flash"
+  fallback_llm_model: "gemini-1.5-flash-8b"
+  temperature: 0.25
+  max_iterations: 9
+
+logging:
+  level: "INFO"
+  format: "%(asctime)s | %(levelname)s | %(name)s | %(message)s"
